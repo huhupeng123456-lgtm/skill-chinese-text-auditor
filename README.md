@@ -1,37 +1,32 @@
-# Claude Skill: Chinese Text Auditor
+# chinese-text
 
-语文审校专家。对用户提供的文本进行逐句审校，先给出可直接使用的完整文本，再通读一遍，最后附审查报告。
+中文正式写作与文稿审核 Skill。本仓库现为合并后的正式 Skill「chinese-text」的源码，用于替换原先的 `chinese-text-auditor` 与 `contract-audit`。仓库名称仍为 `skill-chinese-text-auditor`，以便沿用既有地址。
 
-## 适用场景
+本 Skill 用于：
 
-- "审校这段文字"
-- "检查语病"
-- "润色这段话"
-- "看看这段有什么问题"
-- "改一下这段话"
-- "这段读着别扭"
+- Agent 的全部输出，以及 Agent 生成的内容
+- 用户口语化或语义不明的输入审核
+- 对外公文、计划书、方案、纪要、邮件、合同、采购订单、SOW、验收文件等的写作、润色、审核
+- 经用户确认后，写入飞书云文档或 Word
 
 ## 安装
 
+将本仓库中的 `SKILL.md` 与 `references/comment-style.md` 一并安装到 Agent 的 Skill 目录，Skill 名称（id 与显示名）为 `chinese-text`。
+
 ```bash
-npx skills add <your-github-username>/claude-skill-chinese-text-auditor
+npx skills add huhupeng123456-lgtm/skill-chinese-text-auditor
 ```
 
-## 审查维度
+## 主要规则
 
-1. **去 AI 味**：删除"总的来说""值得注意的是""不难发现"等 AI 高频套话
-2. **语法硬伤**：逐句拆解主谓宾，检查成分残缺、搭配不当、句式杂糅、指代不明、前后矛盾
-3. **语义清晰度**：禁止一句话塞三个以上从句、禁止长串定语修饰
-4. **冗余与重复**：同一段内不重复同一个意思
-5. **标点与格式**：禁止一逗到底，层次清楚时不按逗号数量拆句；引号成对、顿号逗号不混用
+- 正式但不晦涩，不把正式书面语改成口语短句；正式不等于拘谨或一板一眼，不要使用「此致敬礼」「专此函达」这类过于一板一眼的收束语。
+- 已清楚的原句不要为了套格式改坏。
+- 已有完整、通行的说法不要随意省字（例如不可将「弄清楚」省略为「弄清」）。
+- 意思、事实或条款拿不准时，先向用户确认再生成；写入飞书云文档或 Word 前须用户确认后再落笔。
+- 审核时须依次说明改哪里、改成什么样、以及为什么。
+- 合同与条款审核为辅助审阅，不能替代具备相应资质的法律意见。
 
-## 输出格式
-
-- 先输出【修改后文本】
-- 再输出【审查报告】表格
-- 最后给【总评】
-
-详见 [SKILL.md](SKILL.md)。
+完整规则见 [SKILL.md](SKILL.md)，批注体例见 [references/comment-style.md](references/comment-style.md)。
 
 ## License
 
